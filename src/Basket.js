@@ -3,7 +3,7 @@ import React from "react";
 export default function Basket () {
     return (
         <div>
-            Hello World!!!!!!!
+            Hello World!
         </div>
     )
 }
