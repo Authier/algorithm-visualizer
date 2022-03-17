@@ -1,0 +1,46 @@
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Main */
+
+html {
+  color: white;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-image: radial-gradient(rgb(96, 86, 86), rgb(99, 84, 84));
+}
+
+body {
+  margin: 0;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Header */
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 70px;
+  background-image: linear-gradient(rgb(32, 71, 32), rgb(36, 82, 36));
+  box-shadow: 0 0 10px 0 black;
+  padding: 20px;
+}
+
+.left-header {
+  margin-right: auto;
+}
+
+.middle-header {
+  font-size: 40px;
+  text-shadow: 0 0 7px whitesmoke;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.right-header {
+  margin-left: auto;
+}
+
+
+
+
+
+
+
