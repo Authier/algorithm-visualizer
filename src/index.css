@@ -16,7 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  
   min-height: 70px;
   background-image: linear-gradient(rgb(32, 71, 32), rgb(36, 82, 36));
   box-shadow: 0 0 10px 0 black;
@@ -38,9 +38,96 @@ body {
   margin-left: auto;
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Visualizer */
 
+.visualizer-container {
+  display: flex;
+  margin: 50px auto 0px;
+  
+  border-radius: 25px;
+  background-image: radial-gradient(rgb(54, 54, 81), rgb(31, 31, 40));
+  
+  box-shadow: 0 0 10px 0 black;
+  
+  width: 1500px;
+  height: 600px; 
+}
 
+.bar-container {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
 
+  border-radius: 25px;
+  
+  box-shadow: 0 0 5px 0 whitesmoke;
+  
+  gap: 1px;
 
+  height: 90%;
+  width: 95%;
+  
+  background-image: linear-gradient(rgb(188, 166, 166), rgb(162, 136, 136));
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Inputs */
+
+.inputs {
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+#button-extra, #button-visualize, #button-reset {
+  color: white;
+  font-size: 25px;
+  text-shadow: 0 0 2px white;
+  border: solid rgb(0, 0, 150) 1px;
+  border-radius: 10px;
+  background-image: linear-gradient(rgb(73, 73, 155), rgb(79, 79, 216));
+  box-shadow: 0 0 10px 0 black;
+  height: 40px;
+  width: 180px;
+  cursor: pointer;
+}
+#button-visualize {
+  border: solid rgb(150, 0, 0) 1px;
+  border-radius: 10px;
+  background-image: linear-gradient(rgb(181, 52, 52), rgb(167, 16, 16));
+  width: 240px;
+  height: 60px;
+}
+
+#button-visualize:hover {
+  background-image: linear-gradient(rgb(140, 0, 0), rgb(99, 0, 0));
+} 
+
+#button-extra:hover, #button-reset:hover {
+  background-image: linear-gradient(rgb(30, 30, 189), rgb(30, 30, 181));
+}
+
+.numberInputs {
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+}
+
+#n-bars, #min, #max, #width, #speed{
+  margin-left: 5px;
+  margin-right: 50px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Bar */
+
+.bar {
+  border: solid 1px black;
+}
 
 
