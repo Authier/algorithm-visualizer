@@ -26,172 +26,29 @@ function doMerge (array, copyArray, leftIndex, middleIndex, rightIndex, animatio
 
     while (i <= middleIndex && j <= rightIndex) {
         
-        animations.push({
-            
-            leftIndex: leftIndex,
-            leftValue: copyArray[leftIndex],
-            middleIndex: middleIndex,
-            leftValue: copyArray[middleIndex],
-            rightIndex: rightIndex,
-            rightValue: copyArray[rightIndex],
-
-            swapLeft: false,
-            swapRight: false,
-
-            revertColor: false,
-        })
-        
-        animations.push({
-
-            leftIndex: leftIndex,
-            leftValue: copyArray[leftIndex],
-            middleIndex: middleIndex,
-            leftValue: copyArray[middleIndex],
-            rightIndex: rightIndex,
-            rightValue: copyArray[rightIndex],
-
-            swapLeft: false,
-            swapRight: false,
-
-            revertColor: false,
-        })
+        animations.push([i, j])
+        animations.push([i, j])
 
         if (copyArray[i] <= copyArray[j]) {
-
-            animations.push({
-            
-                leftIndex: leftIndex,
-                leftValue: copyArray[leftIndex],
-                middleIndex: middleIndex,
-                leftValue: copyArray[middleIndex],
-                rightIndex: rightIndex,
-                rightValue: copyArray[rightIndex],
-                
-                swapLeft: true,
-                swapRight: false,
-            
-                revertColor: false,
-            })
-            
-            animations.push({
-    
-                leftIndex: leftIndex,
-                leftValue: copyArray[leftIndex],
-                middleIndex: middleIndex,
-                leftValue: copyArray[middleIndex],
-                rightIndex: rightIndex,
-                rightValue: copyArray[rightIndex],
-    
-                swapLeft: true,
-                swapRight: false,
-            
-                revertColor: true,
-            })
-
+            animations.push([k, copyArray[i]])
             array[k++] = copyArray[i++];
         } else {
-
-            animations.push({
-            
-                leftIndex: leftIndex,
-                leftValue: copyArray[leftIndex],
-                middleIndex: middleIndex,
-                leftValue: copyArray[middleIndex],
-                rightIndex: rightIndex,
-                rightValue: copyArray[rightIndex],
-    
-                swapLeft: false,
-                swapRight: true,
-            
-                revertColor: false,
-            })
-            
-            animations.push({
-    
-                leftIndex: leftIndex,
-                leftValue: copyArray[leftIndex],
-                middleIndex: middleIndex,
-                leftValue: copyArray[middleIndex],
-                rightIndex: rightIndex,
-                rightValue: copyArray[rightIndex],
-    
-                swapLeft: false,
-                swapRight: true,
-            
-                revertColor: true,
-            })
-
+            animations.push([k, copyArray[j]])
             array[k++] = copyArray[j++];
         }
     }
 
     while (i <= middleIndex) {
-
-        animations.push({
-            
-            leftIndex: leftIndex,
-            leftValue: copyArray[leftIndex],
-            middleIndex: middleIndex,
-            leftValue: copyArray[middleIndex],
-            rightIndex: rightIndex,
-            rightValue: copyArray[rightIndex],
-
-            swapLeft: true,
-            swapRight: false,
-            
-            revertColor: false,
-        })
-        
-        animations.push({
-            
-            leftIndex: leftIndex,
-            leftValue: copyArray[leftIndex],
-            middleIndex: middleIndex,
-            leftValue: copyArray[middleIndex],
-            rightIndex: rightIndex,
-            rightValue: copyArray[rightIndex],
-            
-            swapLeft: true,
-            swapRight: false,
-            
-            revertColor: true,
-        })
-
+        animations.push([i, i])
+        animations.push([i, i])
+        animations.push([k, copyArray[i]])
         array[k++] = copyArray[i++];
     }
-
+    
     while (j <= rightIndex) {
-
-        animations.push({
-            
-            leftIndex: leftIndex,
-            leftValue: copyArray[leftIndex],
-            middleIndex: middleIndex,
-            leftValue: copyArray[middleIndex],
-            rightIndex: rightIndex,
-            rightValue: copyArray[rightIndex],
-
-            swapLeft: false,
-            swapRight: true,
-            
-            revertColor: false,
-        })
-        
-        animations.push({
-            
-            leftIndex: leftIndex,
-            leftValue: copyArray[leftIndex],
-            middleIndex: middleIndex,
-            leftValue: copyArray[middleIndex],
-            rightIndex: rightIndex,
-            rightValue: copyArray[rightIndex],
-            
-            swapLeft: false,
-            swapRight: true,
-            
-            revertColor: true,
-        })
-
+        animations.push([j, j])
+        animations.push([j, j])
+        animations.push([k, copyArray[j]])
         array[k++] = copyArray[j++]
     }
 

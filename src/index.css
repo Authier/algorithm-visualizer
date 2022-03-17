@@ -111,6 +111,7 @@ body {
 
 #button-extra:hover, #button-reset:hover {
   background-image: linear-gradient(rgb(30, 30, 189), rgb(30, 30, 181));
+
 }
 
 .numberInputs {
