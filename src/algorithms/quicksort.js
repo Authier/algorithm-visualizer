@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function QuickSortAnimation (currentArray) {
     const animations = [];
     currentArray.push(999999999)
