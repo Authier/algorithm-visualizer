@@ -1,5 +1,6 @@
 import React from "react";
 import Bar from './bar.js';
+import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai'
 
 import MergeSortAnimations from "../algorithms/mergesort.js";
 import QuickSortAnimation from "../algorithms/quicksort.js";
@@ -36,6 +37,9 @@ export default function Visualizer () {
     const [randomArray, setRandomArray] = React.useState(RandomValues(numBars, min, max))
     const [displayBars, setDisplayBars] = React.useState(VisualizerHelper())
 
+    const sortingList = ["Merge Sort", "Quick Sort", "Option 3", "Option 4", "Option 5"];
+    const [isDropActive, setIsDropActive] = React.useState(false)
+
     /* Changes display bars each time the random array is changed. This makes it easier to render. */
     React.useEffect(() => {
         setDisplayBars(VisualizerHelper)
@@ -60,7 +64,7 @@ export default function Visualizer () {
     }
 
     function Animate () {
-
+        
         if (currentAlgorithm === "Merge Sort") {
             let animation = MergeSortAnimations(randomArray)
             const arrayBars = document.getElementsByClassName('bar');
@@ -87,6 +91,12 @@ export default function Visualizer () {
                         barOneStyle.height = `${newHeight}px`;
                     }, i * animationSpeed)
                 }
+
+                if (i === animation.length - 1) {
+                    setTimeout(() => {
+                        end();
+                    }, i * animationSpeed)
+                } 
             }
 
         }
@@ -167,12 +177,31 @@ export default function Visualizer () {
                 if (i === animations.length - 1) {
                     setTimeout(() => {
                         const arrayBars = document.getElementsByClassName('bar');
-                        console.log(maxHeight)
-                        arrayBars[arrayBars.length-1].style.height = `${maxHeight}px`; 
+                        arrayBars[arrayBars.length-1].style.height = `${maxHeight}px`;
+                        end();
                     }, i * animationSpeed)
                 } 
             }
         }
+        function end () {
+            const endArrayBars = document.getElementsByClassName('bar'); 
+            const originalColor = "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))";
+            const goldGlow = "linear-gradient(rgb(225,169,95), rgb(255,204,51))";
+            const animationLength = 2000;
+            const animationTurnOffLength = 3000;
+            const waitTime = animationSpeed * 0;
+    
+            for (let i = 0; i < endArrayBars.length; i++) {
+                const currentBar = endArrayBars[i];
+                setTimeout(() => {
+                    currentBar.style.backgroundImage = goldGlow;
+                }, waitTime + i * animationLength / endArrayBars.length)
+                setTimeout(() => {
+                    currentBar.style.backgroundImage = originalColor;
+                }, waitTime + animationTurnOffLength)
+            }
+        }
+
     }
 
     function ResetArray () {
@@ -186,9 +215,34 @@ export default function Visualizer () {
                     {displayBars}
                 </div>
             </div>
-
             <div className="inputs">
-                <button id="button-extra">Algorithms</button>        
+                <div>
+                    {isDropActive && 
+                        <div className="dropdown-items">
+                            {sortingList.map(index => {
+                            return (
+                            <div 
+                                className="dropdown-item"
+                                onClick={() => {
+                                    setCurrentAlgorithm(index)
+                                    setIsDropActive(!isDropActive)
+                                }}
+                                key={index}>
+                                {index}
+                            </div>
+                            )
+                            })}
+                        </div>
+                    }                
+                    <button id="button-extra" onClick={() => setIsDropActive(!isDropActive)}>
+                        <div className="button-left">
+                            {currentAlgorithm}
+                        </div> 
+                        <div className="button-right">
+                            {isDropActive ? <AiFillCaretUp /> : <AiFillCaretDown />}
+                        </div>
+                    </button>
+                </div>
                 <button id="button-visualize" onClick={Animate}>Visualize</button>        
                 <button id="button-reset" onClick={ResetArray}>Reset Array</button>  
             </div>

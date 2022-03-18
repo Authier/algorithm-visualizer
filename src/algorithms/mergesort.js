@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function MergeSortAnimations(currentArray) {
     let copyArray = [...currentArray]
     let animations = []

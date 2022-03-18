@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function () {
+export default function Header () {
     return (
         <div className="header-container">
             
@@ -9,11 +9,11 @@ export default function () {
             </div>
             
             <div className="middle-header">
-                Algorithm Visualizer
+                Sorting Visualizer
             </div>
 
             <div className="right-header">
-                Right
+                Authier
             </div>
 
         </div>

@@ -17,7 +17,7 @@ body {
   justify-content: center;
   align-items: center;
   
-  min-height: 70px;
+  min-height: 30px;
   background-image: linear-gradient(rgb(32, 71, 32), rgb(36, 82, 36));
   box-shadow: 0 0 10px 0 black;
   padding: 20px;
@@ -79,9 +79,9 @@ body {
 
 .inputs {
   display: flex;
-  margin-top: 50px;
+  margin-top: 30px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 30px;
 }
 
@@ -93,16 +93,58 @@ body {
   border-radius: 10px;
   background-image: linear-gradient(rgb(73, 73, 155), rgb(79, 79, 216));
   box-shadow: 0 0 10px 0 black;
-  height: 40px;
-  width: 180px;
+  height: 60px;
+  width: 240px;
   cursor: pointer;
 }
+
+#button-extra{
+  display: flex;
+  padding-left: 15px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button-right {
+  margin-left: auto;
+  margin-top: 5px;
+  margin-right: 5px;
+  justify-content: center;
+}
+
+.dropdown-items {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  margin-top: 65px;
+  color: black;
+  padding: 10px;
+  width: 220px;
+  border-radius: 25px;
+  background-image: radial-gradient(white, rgb(232, 211, 211, 0.6));
+  position: absolute;
+  flex-direction: column;
+}
+
+.dropdown-item {
+  padding: 10px;
+  top:100%;
+  z-index: 1;
+}
+
+.dropdown-item:hover {
+  border-radius: 20px;
+  border: rgb(177, 177, 177);
+  background-image: linear-gradient(rgb(255, 231, 231), rgba(220, 220, 220, 0.6));
+  cursor: pointer;
+}
+
 #button-visualize {
   border: solid rgb(150, 0, 0) 1px;
   border-radius: 10px;
   background-image: linear-gradient(rgb(181, 52, 52), rgb(167, 16, 16));
   width: 240px;
-  height: 60px;
+  height: 70px;
 }
 
 #button-visualize:hover {
@@ -129,6 +171,7 @@ body {
 
 .bar {
   border: solid 1px black;
+  border-radius: 10px;
 }
 
 
