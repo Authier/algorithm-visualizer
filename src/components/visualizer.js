@@ -26,8 +26,9 @@ function RandomValues (n, min, max) {
     )
 }
 
-export default function Visualizer () {
 
+export default function Visualizer () {
+    
     const [numBars, setNumBars] = React.useState(100);
     const [min, setMin] = React.useState(10);
     const [max, setMax] = React.useState(500);
