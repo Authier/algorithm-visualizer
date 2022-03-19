@@ -4,6 +4,7 @@ import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai'
 
 import MergeSortAnimations from "../algorithms/mergesort.js";
 import QuickSortAnimation from "../algorithms/quicksort.js";
+import HeapSortAnimation from "../algorithms/heapsort.js";
 
 import {nanoid} from "nanoid";
 
@@ -37,7 +38,7 @@ export default function Visualizer () {
     const [randomArray, setRandomArray] = React.useState(RandomValues(numBars, min, max))
     const [displayBars, setDisplayBars] = React.useState(VisualizerHelper())
 
-    const sortingList = ["Merge Sort", "Quick Sort", "Option 3", "Option 4", "Option 5"];
+    const sortingList = ["Merge Sort", "Quick Sort", "Heap Sort", "Option 4", "Option 5"];
     const [isDropActive, setIsDropActive] = React.useState(false)
 
     /* Changes display bars each time the random array is changed. This makes it easier to render. */
@@ -64,11 +65,64 @@ export default function Visualizer () {
     }
 
     function Animate () {
-        
+        if (currentAlgorithm === "Heap Sort") {
+            let animations = HeapSortAnimation(randomArray)
+            const arrayBars = document.getElementsByClassName('bar');
+            
+
+            for (let i = 0; i < animations.length; i++) {
+                const currentAnimation = animations[i];
+
+                const color = currentAnimation.isRepeat ? 
+                "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))" :
+                "linear-gradient(rgb(94, 1, 1), rgb(81, 1, 1))";
+                const colorSwap = currentAnimation.isRepeat ?
+                "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))" :
+                "linear-gradient(rgb(0, 0, 0), rgb(50, 41, 41))";
+                const mainSwapColor = currentAnimation.isRepeat ?
+                "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))" :
+                "linear-gradient(rgb(160, 191, 67), rgb(169, 169, 28))";
+
+                const finishColor = "linear-gradient(rgb(55, 204, 215), rgb(36, 153, 203, 0.6))";
+
+                let barOneStyle = arrayBars[currentAnimation.childIndex].style;  /* Also known as the "child" bar */
+                let barTwoStyle = arrayBars[currentAnimation.parentIndex].style;  /* Also known as the "parent" bar */
+                
+                if (currentAnimation.isSwap) {
+                    setTimeout(() => {
+                        barOneStyle.backgroundImage = colorSwap;
+                        barOneStyle.height = `${currentAnimation.parentValue}px`;
+                        barTwoStyle.backgroundImage = colorSwap;
+                        barTwoStyle.height = `${currentAnimation.childValue}px`;
+                    }, i * animationSpeed)
+                } else if (currentAnimation.isMajorSwap) {
+                    setTimeout(() => {
+                        barOneStyle.backgroundImage = mainSwapColor;
+                        barOneStyle.height = `${currentAnimation.parentValue}px`;
+                        barTwoStyle.backgroundImage = finishColor;
+                        barTwoStyle.height = `${currentAnimation.childValue}px`;
+                    }, i * animationSpeed)
+                } else {
+                    setTimeout(() => {
+                        barOneStyle.backgroundImage = color;
+                        barTwoStyle.backgroundImage = color;
+                    }, i * animationSpeed)
+                }
+
+                if (i === animations.length - 1) {
+                    setTimeout(() => {
+                        end();
+                    }, i * animationSpeed)
+                } 
+
+            }
+
+        }
+
         if (currentAlgorithm === "Merge Sort") {
             let animation = MergeSortAnimations(randomArray)
             const arrayBars = document.getElementsByClassName('bar');
-
+            console.log(animation.length)
             for (let i = 0; i < animation.length; i++) {
                 const isColorChange = i % 3 !== 2;
 
