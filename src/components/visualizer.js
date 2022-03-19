@@ -5,6 +5,7 @@ import {AiFillCaretDown, AiFillCaretUp} from 'react-icons/ai'
 import MergeSortAnimations from "../algorithms/mergesort.js";
 import QuickSortAnimation from "../algorithms/quicksort.js";
 import HeapSortAnimation from "../algorithms/heapsort.js";
+import BubbleSortAnimation from "../algorithms/bubblesort.js";
 
 import {nanoid} from "nanoid";
 
@@ -33,13 +34,16 @@ export default function Visualizer () {
     const [width, setWidth] = React.useState(10)
     const [animationSpeed, setAnimationSpeed] = React.useState(10)
 
-    const [currentAlgorithm, setCurrentAlgorithm] = React.useState("Quick Sort")
+    const [currentAlgorithm, setCurrentAlgorithm] = React.useState("Bubble Sort")
 
     const [randomArray, setRandomArray] = React.useState(RandomValues(numBars, min, max))
     const [displayBars, setDisplayBars] = React.useState(VisualizerHelper())
 
-    const sortingList = ["Merge Sort", "Quick Sort", "Heap Sort", "Option 4", "Option 5"];
+    const sortingList = ["Bubble Sort", "Heap Sort", "Merge Sort", "Quick Sort"];
     const [isDropActive, setIsDropActive] = React.useState(false)
+
+    const [lookAtVal, setLookAtVal] = React.useState("Hovered")
+    const [savedLookAtVal, setSavedLookAtVal] = React.useState("Saved")
 
     /* Changes display bars each time the random array is changed. This makes it easier to render. */
     React.useEffect(() => {
@@ -57,6 +61,11 @@ export default function Visualizer () {
                 color={"linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))"}
                 width={width}
                 val={randomArray[i]}
+                index={i}
+                ShowValue={ShowValue}
+                SaveValue={SaveValue}
+                Highlight={Highlight}
+                Revert={Revert}
                 />))
             }
         return (
@@ -65,8 +74,58 @@ export default function Visualizer () {
     }
 
     function Animate () {
+
+        if (currentAlgorithm === "Bubble Sort") {
+            let animations = BubbleSortAnimation(randomArray);
+            const arrayBars = document.getElementsByClassName('bar');
+            
+            for (let i = 0; i < animations.length; i++) {
+                const currentAnimation = animations[i];
+                
+                let barLeftStyle = arrayBars[currentAnimation.leftWindowIndex].style; 
+                let barRightStyle = arrayBars[currentAnimation.rightWindowIndex].style; 
+
+                const color = currentAnimation.isRepeat ? 
+                "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))" :
+                "linear-gradient(rgb(94, 1, 1), rgb(81, 1, 1))";
+                const colorSwap = currentAnimation.isRepeat ?
+                "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))" :
+                "linear-gradient(rgb(0, 0, 0), rgb(50, 41, 41))";
+                const mainSwapColor = currentAnimation.isRepeat ?
+                "linear-gradient(rgb(216, 102, 102), rgb(205, 94, 94))" :
+                "linear-gradient(rgb(160, 191, 67), rgb(169, 169, 28))";
+
+                const finishColor = "linear-gradient(rgb(55, 204, 215), rgb(36, 153, 203, 0.6))";
+
+                if (currentAnimation.isSwap) {
+                    setTimeout(() => {
+                        barLeftStyle.backgroundImage = color;
+                        barLeftStyle.height = `${currentAnimation.rightWindowValue}px`;
+                        barRightStyle.backgroundImage = color;
+                        barRightStyle.height = `${currentAnimation.leftWindowValue}px`;
+                    }, i * animationSpeed)
+                } else {
+                    setTimeout(() => {
+                        barLeftStyle.backgroundImage = color;
+                        barRightStyle.backgroundImage = color;
+                    }, i * animationSpeed)
+                }
+                if (currentAnimation.isEnd) {
+                    setTimeout(() => {
+                        barRightStyle.backgroundImage = finishColor;
+                    }, i * animationSpeed)
+                }
+                if (i === animations.length - 1) {
+                    setTimeout(() => {
+                        end();
+                    }, i * animationSpeed)
+                } 
+
+            }
+        }
+
         if (currentAlgorithm === "Heap Sort") {
-            let animations = HeapSortAnimation(randomArray)
+            let animations = HeapSortAnimation(randomArray);
             const arrayBars = document.getElementsByClassName('bar');
             
 
@@ -122,7 +181,7 @@ export default function Visualizer () {
         if (currentAlgorithm === "Merge Sort") {
             let animation = MergeSortAnimations(randomArray)
             const arrayBars = document.getElementsByClassName('bar');
-            console.log(animation.length)
+
             for (let i = 0; i < animation.length; i++) {
                 const isColorChange = i % 3 !== 2;
 
@@ -262,6 +321,26 @@ export default function Visualizer () {
         setRandomArray(RandomValues(numBars, min, max))
     }
 
+    function ShowValue (index) {
+        const arrayBars = document.getElementsByClassName('bar');
+        setLookAtVal(arrayBars[index].style.height)
+    }
+    
+    function SaveValue (index) {
+        const arrayBars = document.getElementsByClassName('bar');
+        setSavedLookAtVal(arrayBars[index].style.height)
+    }
+
+    function Highlight (index) {
+        const arrayBars = document.getElementsByClassName('bar');
+        arrayBars[index].style.borderColor = "white";
+    }
+
+    function Revert (index) {
+        const arrayBars = document.getElementsByClassName('bar');
+        arrayBars[index].style.borderColor = "black";
+    }
+
     return (
         <div>
             <div className="visualizer-container">
@@ -270,6 +349,11 @@ export default function Visualizer () {
                 </div>
             </div>
             <div className="inputs">
+                <div className="display-values-container">
+                    <h1>
+                        {savedLookAtVal}
+                    </h1>
+                </div>
                 <div>
                     {isDropActive && 
                         <div className="dropdown-items">
@@ -298,7 +382,12 @@ export default function Visualizer () {
                     </button>
                 </div>
                 <button id="button-visualize" onClick={Animate}>Visualize</button>        
-                <button id="button-reset" onClick={ResetArray}>Reset Array</button>  
+                <button id="button-reset" onClick={ResetArray}>Reset Array</button>
+                <div className="display-values-container">
+                    <h1>
+                        {lookAtVal}
+                    </h1>
+                </div>
             </div>
 
             <div className="numberInputs">
