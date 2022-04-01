@@ -71,6 +71,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### Git Commands
 
+C:\Users\Jacob\Desktop\React Examples\Algorithm Visualizer\alg-visualizer
+
 git add .
 
 -and then

@@ -33,7 +33,7 @@ export default function Visualizer () {
     const [min, setMin] = React.useState(10);
     const [max, setMax] = React.useState(500);
     const [width, setWidth] = React.useState(10)
-    const [animationSpeed, setAnimationSpeed] = React.useState(10)
+    const [animationSpeed, setAnimationSpeed] = React.useState(3)
 
     const [currentAlgorithm, setCurrentAlgorithm] = React.useState("Bubble Sort")
 
@@ -429,7 +429,7 @@ export default function Visualizer () {
                 id="speed"
                 type="number" 
                 placeholder="Speed in Millisecond"
-                defaultValue={10}
+                defaultValue={3}
                 onChange={() => setAnimationSpeed(Number(document.getElementById("speed").value))}
                 ></input>      
             </div>
